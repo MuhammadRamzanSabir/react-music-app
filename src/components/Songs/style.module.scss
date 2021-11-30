@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.songsList {
+  background: #E07C24;
+  width: 70%;
+  margin-right: 10px;
+  height: fit-content;
+}
+
+.songForm {
+  background: #E07C24;
+  width: 30%;
+  height: fit-content;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding: 10px;
+}

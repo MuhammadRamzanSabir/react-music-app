@@ -1,0 +1,28 @@
+.formContainer {
+  width: 500px;
+  margin: auto;
+  vertical-align: middle;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  background-color: #f8c292;
+  padding: 20px;
+}
+
+.formContainer form i {
+  position:relative;
+  // position:absolute;
+    bottom:35px;
+    right:-430px;
+    cursor: pointer;
+    // width:24px;
+    // height:24px;
+}
+
+// .form input {
+//  padding: 10px;
+//  margin-bottom: 10px;
+//  position:relative;
+
+// }
