@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { isAuthenticatedUser } from "../../utils/auth";
+import { isAuthenticatedUser, setUserInfoToLocalStorage } from "../../utils/auth";
 import { AppContext } from "../../Contexts/App";
 import styles from './style.module.scss';
 import { InputText } from "../Form/InputText";
@@ -14,7 +14,7 @@ const eye = <FontAwesomeIcon icon={faEye} />;
 
 export const Login = () => {
     const [passwordShown, setPasswordShown] = useState(false);
-    const { globalLoading, setGlobalLoading } = useContext(AppContext);
+    const { globalLoading, setGlobalLoading, setUserInfo } = useContext(AppContext);
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -30,7 +30,8 @@ export const Login = () => {
             const { data } = await axios.post('/users/login', formData);
             if (data.token) {
                 setGlobalLoading(false);
-                localStorage.setItem('token', data.token);
+                setUserInfo(data);
+                setUserInfoToLocalStorage(data);
                 axios.defaults.headers.common = { 'Authorization': `bearer ${data.token}` }
                 navigate('/');
             }

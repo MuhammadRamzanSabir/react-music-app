@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import styles from './style.module.scss';
 import logoImage from '../../static/images/logo.png';
-import {isAuthenticatedUser} from "../../utils/auth";
+import {isAuthenticatedUser, removeUserInfoToLocalStorage} from "../../utils/auth";
+import { AppContext } from "../../Contexts/App";
 
 export const Header = () => {
+    const {userInfo} = useContext(AppContext);
     const navigate = useNavigate();
     return (
         <nav className={styles.mainNav}>
@@ -37,12 +39,17 @@ export const Header = () => {
                         <button type="button" className={styles.searchBtn}>Go</button>
                 </form>
                 {isAuthenticatedUser() ? (
-                    <div className={styles.logout} onClick={() => {
-                        localStorage.removeItem('token');
-                        navigate('/auth/login');
-                    }}>
-                            Logout
-                    </div>
+                     <>
+                     <div className={styles.userInfoSection}>
+                         {userInfo.username} | {userInfo.userRole}
+                     </div>
+                     <div className={styles.logout} onClick={() => {
+                         removeUserInfoToLocalStorage();
+                         navigate('/auth/login');
+                     }}>
+                             Logout
+                     </div>
+                 </>
                 ) : (
                     <div className={styles.login}>
                         <Link to="/auth/login">
